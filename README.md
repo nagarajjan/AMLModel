@@ -1,6 +1,8 @@
 # AMLModel
 AML Model
 
+python -m scripts.run_workflow
+
 To ensure clarity, reusability, and maintainability, the AML and fraud detection system should be broken down into separate Python scripts. A modular approach makes it easier to manage and execute different parts of the workflow independently
 
 Project file structure
@@ -15,7 +17,7 @@ aml_project/
 │   ├── fraud_model.joblib
 │   └── fraud_model_scaler.joblib
 ├── scripts/
-│   ├── __init__.py
+│   ├── __init__.py (important create a new empty python)
 │   ├── kaggle_data.py
 │   ├── model_engine.py
 │   ├── train_models.py
