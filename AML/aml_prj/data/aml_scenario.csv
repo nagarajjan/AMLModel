@@ -1,0 +1,13 @@
+timestamp,transaction_amount,customer_id,other_feature,transaction_type,merchant_category,scenario_type
+2025-09-29 10:00:00,50000.0,999,1.0,debit,investment,Large Transaction
+2025-09-29 10:00:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:02:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:04:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:06:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:08:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:10:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:12:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:14:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:16:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-29 10:18:00,50.0,1000,-0.2,purchase,online retail,Frequent Small Transactions
+2025-09-30 03:00:00,1500.0,1002,0.0,debit,online services,Unusual Transaction Time
