@@ -1,0 +1,11 @@
+customer_id,country,industry,is_pep,complex_ownership_score
+101,HighRiskCountryA,Government,TRUE,0.95
+102,LowRiskCountry,Retail,FALSE,0.10
+103,HighRiskCountryB,NGO,FALSE,0.75
+104,LowRiskCountry,Consulting,FALSE,0.50
+105,LowRiskCountry,Restaurant,FALSE,0.10
+106,HighRiskCountryA,Construction,TRUE,0.80
+107,HighRiskCountryC,Tech,FALSE,0.60
+108,LowRiskCountry,Charity,FALSE,0.20
+109,LowRiskCountry,Auto Dealer,FALSE,0.10
+110,LowRiskCountry,Finance,FALSE,0.40

@@ -1,0 +1,66 @@
+# AML Procedure Manual and Compliance Guide
+
+## Chapter 1: Introduction to AML Compliance
+
+This document outlines the procedures for ensuring compliance with anti-money laundering (AML) regulations. All employees, particularly those involved in transaction monitoring and customer relations, must adhere to these policies to prevent financial crime and protect the institution's integrity. The AML Compliance Officer is responsible for overseeing this program.
+
+## Chapter 2: Suspicious Activity Reporting (SAR) Procedures
+
+### 2.1 Identifying a Suspicious Transaction
+A suspicious transaction is any activity that deviates from a customer's normal behavior or lacks a clear business or lawful purpose. The AML model will flag potential anomalies, but human review is required.
+
+**Red Flags for Suspicious Activity:**
+*   Transactions just below reporting thresholds ($10,000 in the US).
+*   High-value transactions with no clear source of funds.
+*   Transactions involving high-risk jurisdictions.
+*   Sudden, unexpected changes in a customer's transaction patterns.
+*   Use of multiple accounts for a single transaction.
+
+### 2.2 Reporting Process
+Upon identifying a suspicious transaction or receiving an alert from the AML model:
+1.  **Escalate to Compliance:** Immediately inform the Compliance Officer, providing all relevant transaction and customer data.
+2.  **Internal Investigation:** The Compliance team will conduct an internal review of the flagged activity.
+3.  **SAR Filing:** If the activity is determined to be suspicious, the Compliance Officer will file a Suspicious Activity Report (SAR) with the relevant financial intelligence unit (e.g., FinCEN in the US) within 30 calendar days.
+
+## Chapter 3: Customer Due Diligence (CDD) and Risk Profiling
+
+### 3.1 Risk-Based Approach
+Our institution uses a risk-based approach to apply customer due diligence. This means the level of scrutiny applied to a customer is proportional to the money laundering and terrorist financing risk they present.
+
+### 3.2 Customer Risk Categories
+*   **Low Risk:** Individuals with small, predictable transaction volumes and clear sources of funds.
+*   **Medium Risk:** Businesses with moderate transaction volumes or those operating in sectors with some AML risk.
+*   **High Risk:** Customers who require Enhanced Due Diligence (EDD). This includes:
+    *   Politically Exposed Persons (PEPs).
+    *   Individuals or entities from high-risk countries.
+    *   Cash-intensive businesses.
+    *   Customers with complex ownership structures.
+
+## Chapter 4: Enhanced Due Diligence (EDD) for High-Risk Customers
+
+### 4.1 Purpose of EDD
+EDD is a more rigorous verification and monitoring process applied to high-risk customers. The goal is to obtain a deeper understanding of the customer's background, source of wealth, and transactions.
+
+### 4.2 EDD Procedures
+*   **Source of Wealth Verification:** Obtain verifiable information regarding the customer's total assets and how they were accumulated.
+*   **Beneficial Ownership:** For legal entities, identify and verify the ultimate beneficial owners (UBOs).
+*   **Negative News Screening:** Conduct checks for adverse media reports, sanctions list matches, and past criminal history.
+
+## Chapter 5: Record-Keeping and Data Security
+
+### 5.1 Retention Requirements
+All AML-related records, including customer identification documents, transaction records, risk assessments, and SAR filings, must be retained for at least five to seven years, depending on jurisdiction.
+
+### 5.2 Secure Storage
+Records must be stored securely, with access restricted to authorized personnel. Electronic records must be protected with access controls and encryption to prevent unauthorized access or tampering.
+
+## Chapter 6: Employee Training
+
+### 6.1 Training Schedule
+All relevant employees must complete an AML training program upon hiring and an annual refresher course thereafter.
+
+### 6.2 Training Topics
+*   Recognizing money laundering red flags.
+*   The process for escalating suspicious activity.
+*   The importance of data security and confidentiality.
+*   Understanding different customer risk profiles.
