@@ -1,0 +1,173 @@
+This code provides a modular, end-to-end Python framework for an Anti-Money Laundering (AML) machine learning process using the scikit-learn library. The framework is structured to be flexible, allowing for easy model creation, training, evaluation, and retraining with new data. This modularity is a key principle of MLOps, ensuring that the process is reproducible and maintainable.
+
+The complete process involves these steps:
+
+Data loading: A function to load transaction data from a specified source, such as a CSV file.
+
+Data preprocessing: Functions to clean, transform, and normalize the data, which is essential for accurate model training.
+
+Feature engineering: Creating new, meaningful features from the raw data to improve model performance.
+
+Model training and evaluation: A function to train a chosen model and evaluate its performance against new data.
+
+Model retraining: The core function that orchestrates the entire pipeline. It can create a new model or use a previously trained model for retraining.
+
+Model persistence: Saving the trained model to disk for future use.
+
+# How to use and adapt the code
+
+Understand the data: This example uses a simplified schema. You must adapt the preprocess_data and feature_engineer functions to match your specific transaction data, which may contain fields like customer_risk_score, location, and other behavioral features.
+
+Choose your model: The code uses IsolationForest for unsupervised anomaly detection. For a supervised approach (if you have labeled data), you could replace it with another model like RandomForestClassifier or XGBoost.
+
+Refine the retraining strategy: The current retraining function simply re-fits the model on the full historical dataset. A more advanced approach would involve:
+
+Incremental training: Training the model only on the new batch of data if the algorithm supports it.
+
+Scheduled retraining: Setting up the pipeline to automatically retrain the model on a schedule, such as monthly, to capture new patterns.
+
+Triggered retraining: Using data drift monitoring to trigger retraining when the statistical properties of the incoming data change significantly.
+
+Manage model versions: For production-grade systems, you would use a model registry (e.g., in Azure ML or MLflow) to manage different versions of your trained models.
+
+Expand the evaluation: Beyond the basic classification report, a robust AML system would use more sophisticated metrics and techniques, such as:
+
+Precision-Recall curves: More informative for imbalanced datasets common in fraud detection.
+
+Concept drift analysis: Monitoring how the model's performance degrades over time and new data comes in.
+
+Alert triage and explainability: Incorporating model explainability tools to help compliance officers understand why a transaction was flagged.
+
+# This is a complex, multi-component task that requires several distinct parts working together:
+
+Retrieval-Augmented Generation (RAG) agent: This component will load AML and fraud procedure documents into a searchable format and use a large language model (LLM) to generate context-aware, policy-compliant explanations and actions.
+
+AML/Fraud detection engine: This uses the machine learning model from the previous step to generate anomaly flags for new transactions.
+
+Data orchestration: The system needs to link the AML engine's output (anomalous transactions) with the RAG agent to generate actionable insights based on the procedural documents.
+
+Interactive dashboard: A user interface (UI) is needed to display transactions flagged by the AML engine and provide an interface for the RAG agent.
+
+The following Python code uses the LlamaIndex framework for the RAG component, integrates it with the previously developed AML model,and creates a dashboard with Streamlit.
+
+# Step 2: Prepare your RAG documents
+Create a directory for your AML and fraud procedure documents. For this example, let's create a file named aml_procedures.txt.
+
+# Step 3: Integrate RAG agent with AML model and dashboard
+The following code combines the RAG setup with the AML model and a Streamlit dashboard.
+
+aml_agent_app.py
+
+# How to run the solution
+# Set up directories and files:
+Create a directory named docs in the same location as your Python script.
+
+Place your aml_procedures.txt (and any other relevant policy documents like fraud_guidelines.pdf) into the docs directory.
+
+Ensure the AML model (aml_model.joblib) and scaler (aml_scaler.joblib) from the previous step are present. You might need to add code to save the scaler during training in the previous step.
+
+# Set your OpenAI API key:
+Set your OpenAI API key as an environment variable: export OPENAI_API_KEY="your_api_key_here".
+# Run the Streamlit app:
+Open your terminal and run the command: streamlit run aml_agent_app.py
+# Interact with the dashboard:
+Use the dashboard to upload a CSV file of new transactions.
+
+The AML model will flag potential anomalies.
+
+For each flagged transaction, the RAG agent can be prompted to provide a contextual analysis based on your company's procedures.
+
+# How the code works
+AML Engine: This part reuses the model and logic from the first code block to classify new transactions. It loads the saved model and scaler to ensure consistency with the training data.
+
+# RAG Agent (setup_rag_agent):
+
+It uses LlamaIndex to read all documents in the docs directory.
+
+It creates a VectorStoreIndex, which processes the documents, creates embeddings, and stores them in memory for fast retrieval.
+
+It creates a query_engine, which orchestrates the retrieval and generation process.
+
+Agentic Behavior: The system exhibits agentic behavior by combining a machine learning model and an LLM-based RAG. When the AML model flags an anomaly, it acts as a tool-calling agent by automatically triggering a request to the RAG system to generate a specific, policy-driven explanation.
+
+# Dashboard (main):
+Upload: Allows a compliance officer to upload new transaction data.
+
+# AML Results: Displays a clear list of transactions flagged as "Anomaly".
+Investigation: The officer can select an anomalous transaction, triggering a specific query to the RAG agent.
+# RAG Analysis: The agent's generated response, grounded in the AML procedure documents, is displayed, helping the officer understand the context and required next steps. This bridges the gap between the model's prediction and the real-world action needed.
+
+Based on real-world Anti-Money Laundering (AML) best practices, here is a sample aml_procedures.txt file. This document provides the Retrieval-Augmented Generation (RAG) agent with the knowledge base it needs to explain AML risks and guide compliance officers. 
+
+# How to use this file
+
+Save the content below into a plain text file named aml_procedures.txt.
+
+Place this file in the docs directory alongside your Python script for the RAG agent.
+
+Add other documents, such as internal fraud guides or summaries of relevant regulations (e.g., Bank Secrecy Act or EU Directives), to the same directory to expand the agent's knowledge. 
+
+This revised code replaces the OpenAI dependency with Ollama, enabling you to run the RAG agent and LLM locally without an external API.
+# Prerequisites for using Ollama
+
+Install Ollama: Download and install Ollama from https://ollama.com/.
+
+Pull an LLM: Open your terminal and pull a suitable language model. llama3 is a strong choice for general tasks. The model will be downloaded locally.
+
+ollama pull llama3
+
+# Start the Ollama server: Run the following command in your terminal to start the local server. The script will connect to this server at localhost:11434
+
+ollama serve
+
+Install LlamaIndex Ollama Integration: Install the specific LlamaIndex package for Ollama and a local embedding model.
+
+sh
+
+pip install llama-index-llms-ollama llama-index-embeddings-huggingface
+
+# Revised aml_agent_app.py code
+This version of the script replaces llama_index.llms.openai with llama_index.llms.ollama and uses a local Hugging Face embedding model instead of a remote one.
+
+# Key changes and how they work
+# Ollama LLM Integration:
+The import from llama_index.llms.ollama import Ollama replaces the OpenAI import.
+
+Settings.llm = Ollama(model="llama3", request_timeout=120.0) sets the LlamaIndex global LLM to use the locally running Ollama server with the llama3 model.
+
+# Local Embedding Model:
+To ensure the entire process is local, a Hugging Face model (BAAI/bge-small-en-v1.5) is used for generating document embeddings instead of relying on OpenAI's embedding API.
+
+# Settings.embed_model = HuggingFaceEmbedding(...) configures this.
+# Setup and Execution:
+You must have Ollama installed and running with the llama3 model pulled before starting the Streamlit app.
+
+You no longer need to set an OPENAI_API_KEY environment variable.
+
+Robustness: Added more robust error handling for loading models and querying the Ollama server.
+
+# The error "AML model or scaler not found. Please run the training script and save the scaler" indicates that the files aml_model.joblib and aml_scaler.joblib are missing. The dashboard application cannot proceed without these artifacts from the training process.
+To fix this, you need to first run the training script from the initial code block. This script creates the AML model, trains it, and saves it to a file. The key step you must add is to also save the StandardScaler object, which is used to preprocess the data.
+# Step 1: Add code to save the scaler
+In the original AML training script, the train_or_retrain_model function creates and fits a StandardScaler. You must add a line to save this scaler alongside the model.
+
+Modify the original code by inserting save_model(scaler, 'aml_scaler.joblib') to save the fitted scaler object. 
+# Step 2: Run the modified training script
+Execute the updated training script from your terminal. This will create both aml_model.joblib and aml_scaler.joblib in your project directory.
+
+# Step 3: Run the dashboard script
+With both the model and the scaler now available as files, you can start the Streamlit application again.
+
+Here is a sample CSV file for new transactions that aligns with the structure assumed by the provided Python code. You can save this text directly as new_aml_transactions.csv in the same directory as your scripts.
+
+This sample includes a mix of standard transactions and a few that are designed to trigger the Isolation Forest model as potential anomalies.
+
+Explanation of the sample data
+
+Normal transactions: Most of the entries represent typical, random transaction behavior.
+
+High-value anomaly: The transaction on row 51 (transaction_id 10050) has a very high transaction_amount ($50,000), which should stand out from the statistically normal transactions and be flagged by the Isolation Forest model.
+
+Customer behavior: The transactions are for different customers. In a more advanced model (with feature engineering), this mix of new and returning customers would add more data for the model to work with.
+new_aml_transactions.csv
+
