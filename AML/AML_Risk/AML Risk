@@ -1,0 +1,102 @@
+Creating specific risk categories and identifying red flags is a fundamental part of a risk-based 
+compliance program for Anti-Money Laundering (AML). Key risk areas include Politically Exposed Persons (PEPs),
+high-risk countries, cash-intensive businesses, and customers with complex ownership structures,
+each presenting distinct customer and transaction data red flags. To understand the specific data points that
+trigger heightened scrutiny within these categories, review the detailed information provided
+
+To add AML risk category data and logic to your system, you can use Python to define data structures and implement a function for risk scoring. This code snippet shows how to represent high-risk customer categories and their associated red flags. It can be integrated into your existing AML process, perhaps within the data preprocessing or feature engineering steps, 
+to enrich your dataset before training or to enhance the RAG agent's queries.
+
+# AML risk category code
+This Python script defines a RISK_CATEGORIES dictionary containing the data and red flags for Politically Exposed Persons (PEPs), 
+high-risk countries, cash-intensive businesses, and customers with complex ownership structures. It also includes a sample 
+function, assess_customer_risk, that shows how this information can be used to generate a risk score and relevant
+red flags for a given customer.
+
+How to integrate this into your existing AML system
+Enrich RAG context: The RISK_CATEGORIES dictionary can be used to generate a more detailed prompt for your RAG agent. 
+When a transaction is flagged, you can provide the LLM with the risk category
+descriptions and red flags relevant to that specific customer.
+Feature Engineering: The assess_customer_risk function can be used to create new features for your 
+Isolation Forest model. For example, the risk_score could be included as a numerical feature, or binary 
+flags for each risk category could be added.
+Dashboard Enhancement: In your Streamlit dashboard, you can display the triggered_flags and risk_score to
+give the compliance officer more context for an AML alert, thereby improving the agent's explanation.
+
+To integrate the risk category logic from aml_risk_data.py into your AML pipeline, you'll need to modify both aml_process_python_code.py (for feature enrichment during training and saving relevant data) and aml_agent_app.py (to use this enriched data for a more informative dashboard and RAG prompt).
+This involves three main updates:
+Enrich the transaction data: A function is needed to join transaction data with customer data containing risk information.
+Modify the training script: Update aml_process_python_code.py to use the enriched data for training and save the additional required artifacts.
+Modify the dashboard script: Update aml_agent_app.py to use the enriched data, display risk category flags in the dashboard, and include this information in the RAG prompt for a more context-aware response.
+Step 1: Create a sample customer_data.csv
+Your AML model relies on transaction data, but the risk categories require customer-specific data. Create a new CSV file named customer_data.csv to hold this information.
+customer_data.csv
+csv
+customer_id,country,industry,is_pep,complex_ownership_score
+101,HighRiskCountryA,finance,TRUE,0.85
+234,LowRiskCountry,retail,FALSE,0.15
+
+Step 2: Update aml_process_python_code.py
+This script is modified to perform the following:
+Import the RISK_CATEGORIES data.
+Create a function enrich_data_with_risk_flags to add customer risk features to the transaction data.
+Update the train_or_retrain_model to save the customer_data and the column names for consistent preprocessing.
+aml_process_python_code.py
+
+Step 3: Update aml_agent_app.py
+This script is modified to handle the new risk data:
+Import RISK_CATEGORIES.
+Load the customer_data.csv and aml_column_names.joblib file.
+Update run_aml_engine to enrich the data before prediction.
+Modify the dashboard to display the new risk flags and include them in the RAG prompt.
+aml_agent_app.py
+
+To generate the aml_risk_data.py file, you can use a Python script that writes the content directly to a new file. 
+This ensures all the necessary data structures and logic are available for the other parts of your AML system.
+create_aml_risk_data.py
+This script, when executed, will create the aml_risk_data.py file in the same directory, populating it with the 
+required code.
+
+This process requires you to run several Python scripts in a specific order to set up the AML model and then start the dashboard. Follow these steps carefully to ensure all dependencies are met and the files are created correctly.
+Prerequisites
+Install Ollama: If you haven't already, download and install Ollama from https://ollama.com/.
+Pull the LLM model: Open a terminal and run ollama pull llama3.
+Start Ollama server: Run ollama serve in a terminal and leave it running.
+Install Python libraries: Run pip install llama-index llama-index-llms-ollama llama-index-embeddings-huggingface pandas numpy joblib streamlit
+Set up file structure: Create a directory for your project. Inside it, create another directory named docs and save your aml_procedures.txt file within it.
+Step-by-step execution
+Step 1: Create the risk data script
+This script, aml_risk_data.py, defines the customer risk categories and assessment logic. It is imported by other scripts, so it must be created first.
+Save the following code as aml_risk_data.py in your project directory.
+aml_risk_data.py
+
+Step 2: Run the AML training script
+This script will generate the machine learning model (aml_model.joblib), the scaler (aml_scaler.joblib),
+and the column names (aml_column_names.joblib) that the dashboard needs.
+Save the provided aml_process_python_code.py code.
+Ensure you have the sample customer_data.csv available.
+Run the script from your terminal: python aml_process_python_code.py
+Step 3: Run the Streamlit dashboard
+This script launches the interactive dashboard where you can upload the new transactions and use the RAG agent for analysis.
+Save the aml_agent_app.py code.
+Make sure the Ollama server is still running in a separate terminal.
+In your terminal, run the Streamlit application: streamlit run aml_agent_app.py
+Step 4: Interact with the dashboard
+Your web browser will open the Streamlit application.
+Click the "Browse files" button and upload the new_aml_transactions.csv file.
+The AML engine will process the file and display any detected anomalies.
+Select a transaction ID from the dropdown menu to trigger the RAG agent and see its analysis, 
+including references to your aml_procedures.txt document.
+
+The create_aml_risk_data.py script is a utility script. Its sole purpose is to programmatically generate the aml_risk_data.py file, which contains the AML risk categories, data, and assessment logic. 
+You should only need to run create_aml_risk_data.py once. After it has successfully created the aml_risk_data.py file, you can delete it if you wish. The other parts of your AML system will then import and use the newly created aml_risk_data.py file.
+How to use create_aml_risk_data.py
+Save the script: Save the code provided for create_aml_risk_data.py as a Python file in your project directory.
+Run from the terminal: Open your terminal or command prompt, navigate to your project directory, and execute the script:
+sh
+python create_aml_risk_data.py
+
+
+Confirm the file is created: After running, you should see a new file named aml_risk_data.py in the same directory.
+Proceed with other steps: With aml_risk_data.py now in place, you can proceed with running the other scripts 
+in your AML pipeline, such as training the model and starting the Streamlit dashboard.
